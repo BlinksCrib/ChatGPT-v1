@@ -2,13 +2,15 @@ import './App.css'
 import { Configuration, OpenAIApi } from 'openai'
 import { useState } from 'react'
 import { arrayItems } from './AIOptions/main'
-import OptionSelection from './components/OptionSelection';
-import Translation from './components/Translation';
+import OptionSelection from './components/OptionSelection'
+import Translation from './components/Translation'
 
 function App() {
-  const [prompt, setPrompt] = useState("")  
+  const [prompt, setPrompt] = useState('')
   const [result, setResult] = useState('')
   const [resultImg, setResultImg] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [loadingImg, setLoadingImg] = useState(false)
 
   const configuration = new Configuration({
     apiKey: process.env.REACT_APP_Open_AI_Key,
@@ -17,29 +19,32 @@ function App() {
   const openai = new OpenAIApi(configuration)
 
   const generateImage = async () => {
-   const response = await openai.createImage({
+    setLoadingImg(true)
+    const response = await openai.createImage({
       prompt: prompt,
       n: 1,
-      size: "1024x1024",
+      size: '1024x1024',
     })
     setResultImg(response.data.data[0].url)
+    setLoadingImg(false)
   }
 
   const [option, setOption] = useState({})
   const [input, setInput] = useState('')
 
-   const selectOption = (option) => {
-     setOption(option)
-   }
+  const selectOption = (option) => {
+    setOption(option)
+  }
 
-   const doStuff = async () => {
-     let object = { ...option, prompt: input }
+  const doStuff = async () => {
+    setLoading(true)
+    let object = { ...option, prompt: input }
 
-     const response = await openai.createCompletion(object)
+    const response = await openai.createCompletion(object)
 
-     setResult(response.data.choices[0].text)
-   }
-
+    setResult(response.data.choices[0].text)
+    setLoading(false)
+  }
 
   return (
     <>
@@ -50,7 +55,12 @@ function App() {
             selectOption={selectOption}
           />
         ) : (
-          <Translation doStuff={doStuff} setInput={setInput} result={result} />
+          <Translation
+            doStuff={doStuff}
+            setInput={setInput}
+            result={result}
+            loading={loading}
+          />
         )}
       </div>
       <div className='app-main'>
@@ -62,7 +72,7 @@ function App() {
           onChange={(e) => setPrompt(e.target.value)}
         />
         <button onClick={generateImage} className='action-btn'>
-          Generate an Image
+          {loadingImg ? 'Loading...' : 'Generate an Image'}
         </button>
         {resultImg.length > 0 ? (
           <img className='result-image' src={resultImg} alt='' />
