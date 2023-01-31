@@ -1,38 +1,120 @@
-.App {
+/* *{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400&display=swap");
+
+.app-main{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0;
+  font-family: Poppins;
+}
+.app-input{
+  height: 30px;
+  width: 400px;
+  margin: 20px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  caret-color: white;
+}
+
+.app-input::placeholder{
+  color: white;
+}
+.result-image{
+  margin-top: 20px;
+  width: 400px;
+}
+@media screen and (max-width:767px) {
+  .result-image{
+  width: 90%;
+}
+.app-input{
+  width: 95%;
+}
+}
+
+
+#root {
+  width: 90%;
+  /* margin: 0 auto; */
+  /* padding: 2rem; */
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-top: 3rem;
+}
+.App{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.heading {
+  font-family: Poppins;
 }
 
-.App-link {
-  color: #61dafb;
+.grid-main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 40px;
+}
+@media screen and (max-width:767px){
+  .grid-main{
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.grid-child {
+  border: 2px solid whitesmoke;
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.grid-child:hover {
+  background-color: whitesmoke;
+  color: #212121;
+}
+
+.grid-child h3 {
+  font-family: Poppins;
+  font-weight: 700;
+}
+
+.grid-child p {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.text-area {
+  font-size: 20px;
+  padding: 10px;
+  font-family: Poppins;
+  resize: none;
+}
+
+.action-btn {
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.result-text {
+  font-family: Poppins;
+  font-size: 25px;
+  line-height: 2.5rem;
 }
