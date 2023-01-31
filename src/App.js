@@ -6,9 +6,9 @@ import OptionSelection from './components/OptionSelection';
 import Translation from './components/Translation';
 
 function App() {
-  console.log(arrayItems);
   const [prompt, setPrompt] = useState("")  
   const [result, setResult] = useState('')
+  const [resultImg, setResultImg] = useState('')
 
   const configuration = new Configuration({
     apiKey: process.env.REACT_APP_Open_AI_Key,
@@ -22,8 +22,7 @@ function App() {
       n: 1,
       size: "1024x1024",
     })
-    console.log(response.data.data[0].url);
-    setResult(response.data.data[0].url)
+    setResultImg(response.data.data[0].url)
   }
 
   const [option, setOption] = useState({})
@@ -65,8 +64,8 @@ function App() {
         <button onClick={generateImage} className='action-btn'>
           Generate an Image
         </button>
-        {result.length > 0 ? (
-          <img className='result-image' src={result} alt='' />
+        {resultImg.length > 0 ? (
+          <img className='result-image' src={resultImg} alt='' />
         ) : (
           <></>
         )}
